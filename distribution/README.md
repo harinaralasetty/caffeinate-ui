@@ -1,6 +1,6 @@
 # Homebrew distribution preparation
 
-Status: local preparation only. No release download, live tap or verified Homebrew install command is published. Use the GitHub source repository as the homepage; a separate download website is unnecessary. No license has been chosen.
+Status: unsigned own-tap release published (v1.7, 11 October 2026; tap `harinaralasetty/homebrew-tap`). Clean-system install, upgrade, uninstall and Gatekeeper first-launch tests are still pending; no Developer ID signing or notarization. Use the GitHub source repository as the homepage; a separate download website is unnecessary. No license has been chosen.
 
 ## Decisions and prerequisites
 

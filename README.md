@@ -22,6 +22,14 @@ The app declares **macOS 13 or later**. Build with a compatible **Swift 6** tool
 
 Check your toolchain with `xcode-select -p` and `swift --version`. Local bundles are ad hoc signed and verified by the scripts; this repository does not provide a notarized release or App Store distribution.
 
+## Install with Homebrew
+
+```sh
+brew install --cask harinaralasetty/tap/caffeinate-ui
+```
+
+Apple Silicon, macOS 13+. The app is not signed with a Developer ID or notarized, so macOS may block the first launch: open System Settings > Privacy & Security and choose "Open Anyway". Released as [v1.7](https://github.com/harinaralasetty/caffeinate-ui/releases/tag/v1.7); the cask lives in [homebrew-tap](https://github.com/harinaralasetty/homebrew-tap).
+
 ## Install from source
 
 ```sh
@@ -112,8 +120,12 @@ The app has no network client, account, telemetry service or cloud sync code. It
 
 Maintained by [Hari Naralasetty](https://github.com/harinaralasetty). Report reproducible issues through [Caffeinate UI repository issues](https://github.com/harinaralasetty/caffeinate-ui/issues), including macOS version, build/toolchain version, relevant errors and whether app-owned or CLI activity was involved. Review screenshots/logs for private information before posting.
 
-## Homebrew preparation
+## Homebrew distribution
 
-The [distribution plan](distribution/README.md) and draft cask are preparation only. A published versioned release and tested tap are still pending; Developer ID signing and notarization are recommended for public binary first launch, rather than universal own-tap requirements; no Homebrew installation command for this app is published.
+The tap and v1.7 release are published; see the [distribution notes](distribution/README.md) for the signing decision and the checks still pending (clean-system install, upgrade and uninstall tests, Intel support). Developer ID signing and notarization remain optional future work.
 
 The rename keeps `personal.harinaralasetty.Caffeine` as the bundle identifier and the original login-job label so existing awards and settings survive. The installer backs up and migrates this project's old `Caffeine.app` only after checking its identity, and updates an already configured login job to `Caffeinate UI.app`. Another vendor's bundle is never overwritten.
+
+## License
+
+[MIT](LICENSE)
