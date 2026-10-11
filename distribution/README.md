@@ -1,6 +1,6 @@
 # Homebrew distribution preparation
 
-Status: unsigned own-tap release published (v1.7, 11 October 2026; tap `harinaralasetty/homebrew-tap`). Clean-system install, upgrade, uninstall and Gatekeeper first-launch tests are still pending; no Developer ID signing or notarization. Use the GitHub source repository as the homepage; a separate download website is unnecessary. No license has been chosen.
+Status: unsigned own-tap release published (v1.7, 11 October 2026; tap `harinaralasetty/homebrew-tap`). Clean-system install, upgrade, uninstall and Gatekeeper first-launch tests are still pending; no Developer ID signing or notarization. Use the GitHub source repository as the homepage; a separate download website is unnecessary. The project is MIT licensed.
 
 ## Decisions and prerequisites
 
@@ -9,7 +9,7 @@ Status: unsigned own-tap release published (v1.7, 11 October 2026; tap `harinara
 - Naming approved by Hari. The authorized rename uses Caffeinate UI.app and the caffeinate-ui repository; retain the existing bundle identifier and preferences. Initial recommendation: release-optimized Apple Silicon package. Intel/universal support needs a separately built and tested x86_64 slice; do not claim support from package minimum-version declarations. Confirm supported macOS versions on clean systems.
 - A maintainer's own Homebrew tap does not universally require Apple Developer membership, Developer ID signing or notarization. The cask DSL requires version, download checksum, URL, name, description, homepage and an installation artifact. The tap needs a Git repository with its cask in `Casks/`. Homebrew's official macOS casks separately require Gatekeeper compatibility.
 - Developer ID signing and notarization are recommended for a public binary release with ordinary Gatekeeper first launch. Membership and the owner's existing signing/notary credentials would be needed for that route; no enrollment or credentials have been configured. An ad hoc binary can be packaged and referenced by an own-tap cask, but successful download/install does not prove macOS will permit its first launch. Do not bypass quarantine or Gatekeeper to make a test pass.
-- A license is not a required cask stanza. Hari must decide the intended reuse/distribution rights before we describe them; public GitHub visibility does not supply a license. This decision does not block local build, ZIP/checksum or syntax checks.
+- A license is not a required cask stanza. The repository is MIT licensed (see `LICENSE`); the cask does not declare one.
 
 ## Build and immutable artifact
 
