@@ -15,6 +15,7 @@ Start with the [README](README.md) for product behavior and supported commands. 
 | [PowerAssertions.swift](CaffeinateUI/Core/PowerAssertions.swift) | IOKit create/release, active assertion snapshots, power-source classification, CLI identity/start metadata |
 | [AwakeSession.swift](CaffeinateUI/Core/AwakeSession.swift) | Catalog validation, elapsed progress, threshold unlocks and earned-ID persistence |
 | [CLIActivityClock.swift](CaffeinateUI/Core/CLIActivityClock.swift) | Monotonic current CLI interval, recovered start, overlap continuity and persisted claims |
+| [AwakeTimers.swift](CaffeinateUI/Core/AwakeTimers.swift) | Optional per-mode auto-off deadlines on a sleep-inclusive monotonic clock, minute parsing and countdown labels |
 | [AwakePreferences.swift](CaffeinateUI/Core/AwakePreferences.swift) | Saved independent control choices |
 | [RuntimeCheck.swift](CaffeinateUI/Sources/Support/RuntimeCheck.swift) | Isolated packaged assertion and native-view diagnostics |
 | [Tests](CaffeinateUI/Tests) | Failure, boundary, persistence, CLI identity/overlap/expiry and policy tests |
@@ -26,6 +27,7 @@ Start with the [README](README.md) for product behavior and supported commands. 
 - `AwakeController.turnOff` releases only IDs returned by its backend and remains the Quit/test-cleanup operation. Explicit `turnOffAll` additionally stops verified user-owned standalone Terminal CLI processes, never shells, process groups, wrapped commands, watched jobs or other applications. Unknown detached processes are protected unless their exact PID and birth have explicit authorization.
 - `isActive` means app-owned assertions; `isSessionActive` additionally includes qualifying CLI assertions. Control checkmarks describe owned state.
 - Menu heading, steam and On/Off availability use the same `AwakeMenuState`: active app or CLI means On, On disabled and Off enabled; no qualifying activity means Off, On enabled and Off disabled. Failed/protected stops retain truthful active state and report affected PIDs. Independent system/display toggles still describe app ownership.
+- Timers are optional and per mode (`AwakeController.set(_:for:)`). A timed run does not change the saved choice; expiry and any manual off clear the choice and the deadline. Deadlines are never persisted, apply only to app-owned IDs, and a failed release keeps the expired timer so the next tick retries. The app never calls `pmset` or forces display sleep.
 - Qualifying CLI assertions use the canonical caffeinate name and active system/display types. AC-only `PreventSystemSleep` is filtered on battery.
 - Historical CLI progress is an interval, not an additive balance: `includeCLIInterval` extends coverage using `min(startedAt, now - seconds)`. Polling, multiple processes and relaunch must never sum the same interval twice.
 - CLI recovery uses current `GlobalUniqueID` plus `AssertStartWhen`. Saved interval starts are considered only when that exact assertion is active. Observed overlaps can retain earlier coverage. Missing/invalid dates and clock discontinuities remain conservative.

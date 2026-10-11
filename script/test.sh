@@ -13,7 +13,8 @@ fi
 if [[ "$CHECK_MODE" == --no-display ]]; then
   EXTRA+=(--skip realCLIFlagsExpiryAndMultipleProcesses)
 fi
-swift test --jobs 2 "${EXTRA[@]}"
+# bash 3.2 (macOS /bin/bash) treats an empty array as unset under set -u.
+swift test --jobs 2 ${EXTRA[@]+"${EXTRA[@]}"}
 # This mode tests real system-only assertions without launching an app or
 # running the packaged self-test, which explicitly acquires display assertions.
 [[ "$CHECK_MODE" != --no-display ]] || exit 0

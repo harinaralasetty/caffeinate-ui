@@ -6,15 +6,18 @@ import CoreImage
 @MainActor
 final class AwardsPresentation: ObservableObject {
     let awards: [CaffeinateUIAward]
-    let images: [String: NSImage]
-    let lockedImages: [String: NSImage]
+    // Decoding and greying 12 large PNGs is deferred until the window first renders.
+    private lazy var artwork: (colour: [String: NSImage], locked: [String: NSImage]) = Self.loadArtwork(awards)
+    var images: [String: NSImage] { artwork.colour }
+    var lockedImages: [String: NSImage] { artwork.locked }
     @Published var earnedIDs: Set<String> = []
     @Published var elapsed: TimeInterval = 0
     @Published var duration = "00:00:00"
     @Published var cliDuration: String?
 
-    init(awards: [CaffeinateUIAward]) {
-        self.awards = awards
+    init(awards: [CaffeinateUIAward]) { self.awards = awards }
+
+    private static func loadArtwork(_ awards: [CaffeinateUIAward]) -> (colour: [String: NSImage], locked: [String: NSImage]) {
         var images: [String: NSImage] = [:]
         var lockedImages: [String: NSImage] = [:]
         let context = CIContext(options: [.useSoftwareRenderer: true])
@@ -32,8 +35,7 @@ final class AwardsPresentation: ObservableObject {
                 }
             }
         }
-        self.images = images
-        self.lockedImages = lockedImages
+        return (images, lockedImages)
     }
 
     func update(from session: AwakeSession) {
