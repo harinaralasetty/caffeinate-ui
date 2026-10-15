@@ -16,11 +16,11 @@ Swift 6 / AppKit / IOKit macOS menu-bar app (macOS 13+, arm64 builds). Manages i
 - Version 1.7 (build 8). Released as GitHub release v1.7 (unsigned arm64 zip). MIT licensed.
 - Optional auto-off timers for system and display (`Core/AwakeTimers.swift`; presets 15m/30m/1h/2h/4h/custom 1-1440 min; expiry releases only that mode; display timer just lets macOS sleep it normally; timers are not kept across relaunch).
 - Menu: `System awake` and `Display awake` submenus (built once, updated in place so they do not collapse), Turn On/Off master items, countdown in status line and next to the menu-bar icon.
-- Last verified: `./script/test.sh` passes (38 tests plus packaged self-test) on the Mac. The redesigned menu was NOT visually verified by Claude; the user tests the 1-minute custom timer by hand.
+- Last verified: `./script/test.sh` passes (38 tests plus packaged self-test) on the Mac. The redesigned menu has not been visually verified; the 1-minute custom timer still needs a manual check.
 
 ## Homebrew
 - Tap: https://github.com/harinaralasetty/homebrew-tap, cask `caffeinate-ui`. Install: `brew install --cask harinaralasetty/tap/caffeinate-ui`.
-- Unsigned, not notarized (no Developer ID, $99/yr, user declined for now). First launch needs System Settings > Privacy & Security > Open Anyway. Cask caveat and README say so.
+- Unsigned, not notarized (no Developer ID for now). First launch needs System Settings > Privacy & Security > Open Anyway. Cask caveat and README say so.
 - Not done: clean-Mac install/upgrade/uninstall test, `brew audit`, Intel build, immutable-releases setting.
 - Release recipe (new version vX): bump APP_VERSION/APP_BUILD in script/build_and_run.sh, run tests, commit and push, `./script/build_and_run.sh CaffeinateUI --release-build-only`, `ditto -c -k --keepParent "dist/Caffeinate UI.app" dist/release/Caffeinate-UI-X.zip`, `shasum -a 256`, `gh release create vX <zip> -R harinaralasetty/caffeinate-ui --target <sha>`, then update version and sha256 in the tap's `Casks/caffeinate-ui.rb` and push. Never replace an already-released asset; ship a new version.
 - A source-build formula (free, no Gatekeeper warning, needs Swift toolchain) was discussed but not built.
